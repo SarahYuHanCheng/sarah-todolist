@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-<form action="http://localhost:8000/todos/{{ $id }}" method="post">
+  <form action="http://localhost:8000/todos/{{ $id }}" method="post">
     @csrf
     <input type="hidden" name="_method" value="PUT">
     <label for="name">Task</label>

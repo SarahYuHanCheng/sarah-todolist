@@ -37,12 +37,12 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->headers->set('Accept', 'application/json');
-        $validatedData = $request->validate([
+        // $request->headers->set('Accept', 'application/json');
+        $this->validate($request, [
             'name' => 'required|unique:todos|max:255'
         ]);
 
-        $new_todo = Todo::create($validatedData);
+        Todo::create($request->all());
         return redirect('todos');
         // return response(['created_data' => $new_todo]);
     }
@@ -95,7 +95,7 @@ class TodoController extends Controller
         $target_todo->update(['done' => 1]);
         return redirect('todos');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *

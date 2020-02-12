@@ -42,20 +42,9 @@
 
                 <div class="panel-body">
                     <!-- New Task Form -->
-                    <form action="http://localhost:8000/todos" method="POST" class="form-horizontal">
-                        <!-- Task Name -->
+                    <form action="/todos/" method="POST" class="form-horizontal">
                         @csrf
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        
+                        <!-- Task Name -->
                         <div class="form-group">
                             <label for="task-name" class="col-sm-3 control-label">Task</label>
 
@@ -63,15 +52,9 @@
                                 <input type="text" name="name" id="task-name" class="form-control" value="">
                             </div>
                         </div>
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                        @if ($errors->has('name')) <p class="help-block"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            {{ $errors->first('name') }}</p>
+                        @endif
                         <!-- Save Button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
@@ -103,15 +86,14 @@
                                             <del>{{ $todo->name }}</del>
                                         </td>
                                         <td class="col-sm-6">
-                                            <form action="">
-                                                <button type="submit" class="btn btn-success disabled"><i class="fa fa-btn fa-thumbs-o-up"></i>completed</button>
-                                            </form>
+                                            <button type="submit" class="btn btn-success disabled"><i class="fa fa-btn fa-thumbs-o-up"></i>completed</button>
 
-                                            <form action="http://localhost:8000/todos/edit/{{ $todo->id }}" method="GET">
+                                            <form action="/todos/edit/{{ $todo->id }}/" method="GET">
+                                                @csrf
                                                 <button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-pencil"></i>edit</button>
                                             </form>
 
-                                            <form action="http://localhost:8000/todos/{{ $todo->id }}" method="POST">
+                                            <form action="/todos/{{ $todo->id }}/" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="_method" value="delete">
                                                 <button type="submit" class="btn btn-danger"><i class="fa fa-btn fa-trash"></i>delete</button>
@@ -122,24 +104,24 @@
                                     <tr>
                                         <td class="col-sm-6">{{ $todo->name }}</td>
                                         <td class="col-sm-6">
-                                            <form action="http://localhost:8000/todos/completed/{{ $todo->id }}" method="POST">
+                                            <form action="/todos/completed/{{ $todo->id }}/" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="_method" value="PUT">
                                                 <button type="submit" class="btn btn-success"><i class="fa fa-btn fa-thumbs-o-up"></i>completed</button>
                                             </form>
 
-                                            <form action="http://localhost:8000/todos/edit/{{ $todo->id }}" method="GET">
+                                            <form action="/todos/edit/{{ $todo->id }}/" method="GET">
+                                                @csrf
                                                 <button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-pencil"></i>edit</button>
                                             </form>
 
-                                            <form action="http://localhost:8000/todos/{{ $todo->id }}" method="POST">
+                                            <form action="/todos/{{ $todo->id }}/" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="_method" value="delete">
                                                 <button type="submit" class="btn btn-danger"><i class="fa fa-btn fa-trash"></i>delete</button>
                                             </form>
                                         </td>
                                     </tr>
-                                    
                                 @endif
                             @endforeach
                         </tbody>
