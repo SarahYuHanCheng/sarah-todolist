@@ -78,12 +78,12 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        $request->headers->set('Accept', 'application/json');
-        $validatedData = $request->validate([
+        $this->validate($request, [
             'name' => 'required|unique:todos|max:255'
         ]);
+
         $target_todo = Todo::where('id', $todo->id)->first();
-        $target_todo->update($validatedData);
+        $target_todo->update($request->all());
         // $new_todo = Todo::where('id', $todo->id)->update($validatedData);
         // return response(['created_data' => $target_todo]);
         return redirect('todos');
