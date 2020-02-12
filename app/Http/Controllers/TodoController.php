@@ -89,11 +89,13 @@ class TodoController extends Controller
         return redirect('todos');
     }
 
+
     public function completed(Request $request, Todo $todo){
         $target_todo = Todo::where('id', $todo->id)->first();
         $target_todo->update(['done' => 1]);
         return redirect('todos');
     }
+    
     /**
      * Remove the specified resource from storage.
      *
