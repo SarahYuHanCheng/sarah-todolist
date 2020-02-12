@@ -7,6 +7,9 @@
   <title>Document</title>
 </head>
 <body>
+  @if ($errors->has('name')) <p class="help-block"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    {{ $errors->first('name') }}</p>
+  @endif
   <form action="/todos/{{ $id }}" method="post">
     @csrf
     <input type="hidden" name="_method" value="PUT">
